@@ -1,0 +1,116 @@
+
+<div class="container">
+<div style="float: left;"><%= link_to "Back" ,root_path%></div>
+<div style="float: right;"><%= link_to "Next" ,root_path%></div>
+<div style="text-align:center"><font size="2" color="blue"><h1><strong><%= @movie.name%></strong></h1></font></div>
+  <div class="row">
+    <div class="jumbotron">
+      <div class="col-md-4">
+        <%= image_tag @movie.trailer_URL, size: "200x150"%>
+      </div>
+
+      <div class="col-md-8">
+      <div class="col-md-12">
+        <h3><code>Name:</code>
+          <%= @movie.name %>
+        </h3>
+      </div>
+
+
+      <div class="col-md-12">
+        <strong>Description:</strong>
+        <%= @movie.description %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Genre:</strong>
+        <%= @movie.genre %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Language:</strong>
+        <%= @movie.language %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Casts:<% @movie.casts[0][:name] %></strong>
+        <mark>    <%  @movie.casts.pluck(:name).join(",")  %> </mark>
+
+
+<% @movie.casts.each do |cast| %>
+              <%= link_to cast.name, cast %>
+              <% if cast!= @movie.casts.last %>
+                ,
+              <%end%>
+            <%end%>
+        </div>
+
+        <div class="col-md-12">
+          <strong> Release Date: </strong>
+          <%= @movie.release_date %>
+        </div>
+
+     </div>  
+       
+  <div class="well .well-sm"> 
+ 
+     <% if user_signed_in? %>
+     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demomovie">Add Review</button>
+     <%else%>
+      <%= link_to 'Add Review', new_user_session_path, class: "btn btn-info" %>
+     <%end%>
+
+<span class="glyphicon glyphicon-pencil"></span>
+
+<div id="demomovie"  class="collapse"> 
+<% if user_signed_in? %> 
+<%= render 'reviews/form' %>
+<%end%>
+</div>
+
+
+
+
+
+      <hr style="border-color: #123455">
+        <% @movie.reviews.each do |review| %>
+          <div class="media">
+            <div class="media-left media-middle">
+              <%= image_tag 'user_photo.png' , size: "100x50" %>
+            </div>
+
+            <div class="media-body">
+            <div class="col-md-12">   
+<input id="input-2" name="input-2" class="rating " value=<%= review.rating%> data-show-clear="false" data-show-caption="false" data-size="xxs" data-readonly="true" data-disabled="true"  >
+</div>
+            
+            
+            <div class="col-md-12">
+             <%= review.user.email %>
+             <span class="glyphicon glyphicon-user"></span>
+             </div>             
+
+
+              <div class="col-md-12">
+                <strong>Title:</strong>
+                <%= review.title %>
+              </div>
+
+              <div class="col-md-12">
+                <strong>Posted On:</strong>
+                <%= review.created_at  %>           
+              </div>
+
+              <div class="col-md-12">
+                <strong>Comment:</strong>
+                <%= review.comment %>
+              </div>
+
+            </div>
+          </div>
+          <hr style="border-color: #123455">
+        <%end%>
+      </div>
+    </div>
+  </div>
+

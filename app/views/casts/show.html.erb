@@ -1,0 +1,89 @@
+
+<div class="container">
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-4">
+        <%= image_tag @cast.photos_URL, size: "200x150" %>
+      </div>
+
+      <div class="col-md-8">
+        <div class="col-md-12">
+        <h3><code>Name:</code>
+          <%= @cast.name %>
+        </h3>
+      </div>
+
+
+      <div class="col-md-12">
+        <strong>Description:</strong>
+        <%= @cast.description %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Gender:</strong>
+        <%= @cast.gender %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Age:</strong>
+        <%= @cast.age %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Date Of Birth:</strong>
+        <%= @cast.DOB %>
+        </div>
+
+     <div class="col-md-12">
+        <strong>List Of Movies:</strong>
+        <% @cast.movies.each do |movie| %>
+        <%= link_to movie.name,movie %>
+        <% if movie!= @cast.movies.last %>
+        ,
+       <%end%>
+       <%end%>
+      </div>
+
+      <div class="col-md-12">
+        <strong>List Of Tv Serials:</strong>
+        <% @cast.tvs.each do |tv| %>
+        <%= link_to tv.name,tv %>
+        <% if tv!= @cast.tvs.last %>
+        ,
+        <%end%>
+        <%end%>
+      </div>
+
+
+
+
+
+
+        <div class="well .well-sm"> 
+        <%= link_to "Edit Page" ,edit_cast_path, class: "bt btn-success" %> 
+          <span class="glyphicon glyphicon-pencil"></span>
+        </div>
+        <%= link_to "Back" , root_path, class: "bt btn-primary"%>
+        </div>
+
+
+      <% @cast.movies.each  do |movie| %>
+      <div class="col-md-3">
+        <% image_tag movie.trailer_URL, size: "200x150" %> 
+        <%= link_to(image_tag(movie.trailer_URL, size: "200x150"),movie) %>
+      </div>
+    <%end%>
+
+    <% @cast.tvs.each  do |tv| %>
+     <div class="col-md-3">
+        <% image_tag tv.trailer_URL, size: "200x150" %> 
+        <%= link_to(image_tag(tv.trailer_URL, size: "200x150"),tv) %>
+      </div>
+   <%end%>
+
+   <% @cast.images.each do |p| %>
+   <%=  image_tag p.image %>
+   <%end%>
+   </div>
+
+

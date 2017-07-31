@@ -1,0 +1,11 @@
+<div class= "container" >
+  <%=bootstrap_form_for @review do |f| %>
+    <%= f.text_field :title,placeholder:  "Join The Discussion.." %>
+    <%= f.text_field :rating ,class: 'rating rating-loading'%>
+    <%= f.text_area :comment, as: :text %>
+    <%= f.hidden_field :resource_id, value: @review.resource_id %>
+    <%= f.hidden_field :resource_type, value: @review.resource_type %>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>
+

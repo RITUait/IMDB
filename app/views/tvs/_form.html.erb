@@ -1,0 +1,17 @@
+<div class= "container" >
+  <%= bootstrap_nested_form_for @tv do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_field :genre %>
+    <%= f.date_field :release_date %>
+    <%= f.text_field :trailer_URL %>
+    <%= f.text_field :language %>
+    <%= f.text_area :description ,as: :text %>
+    <%= f.fields_for :movie_casts do |mv| %>
+      <%= mv.collection_select :cast_id, Cast.all, :id ,:name %>
+      <%= mv.link_to_remove "Remove" %>
+    <%end%>
+    <%= f.link_to_add "Add", :movie_casts %>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>
+

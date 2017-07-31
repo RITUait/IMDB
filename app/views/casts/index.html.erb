@@ -1,0 +1,35 @@
+<div class="container" style="background-color:white" >
+<h1> List Of Casts </h1>
+<%= link_to "Add New Cast ",new_cast_path,class: "bt btn-success" %>
+
+<table class="table table-bordered">
+  <thead>
+    <th>Sr. No.</th>
+    <th>Name</th>
+    <th>Date Of Birth</th>
+    <th>Gender</th>
+    <th>Age</th>
+    <th>Description</th>
+    <th>Photos_URL</th>
+    <th>Action</th>
+  </thead>
+
+  <tbody>
+  <% @casts.each do |cast| %>
+    <tr>
+      <td><%= cast.id %></td>
+      <td><%= cast.name %></td>
+      <td><%= cast.DOB %></td>
+      <td><%= cast.gender %></td>
+      <td><%= cast.age %></td>
+      <td><%= cast.description %></td>
+      <td><%= cast.photos_URL %></td>
+      <td>
+        <%= link_to "Edit" , edit_cast_path(cast) %>
+        <%= link_to "Delete" ,cast, method: :delete %>
+      </td>
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+</div>

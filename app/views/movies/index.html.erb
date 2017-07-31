@@ -1,0 +1,43 @@
+<%= will_paginate @movies %>
+<div class="container" style="background-color :white" >
+
+  <h1> LIST OF MOVIES </h1>
+<%= link_to "Add New Movie",new_movie_path, class: "ritu btn-success" %>
+
+<table class="table table-bordered">
+<thead>
+  <th>Sr. No.</th>
+  <th>Name</th>
+  <th>Genre</th>
+  <th>Language</th>
+  <th>Release Date</th>
+  <th>Url</th>
+  <th>Description</th>
+  <th>Action</th>
+</thead>
+
+<tbody>
+<% @movies.each do |movie| %>
+  <tr>
+    <td><%= movie.id %></td>
+    <td><%= movie.name %></td>
+    <td><%= movie.genre %></td>
+    <td><%= movie.language %></td>
+    <td><%= movie.release_date %></td>
+    <td><%= movie.trailer_URL %></td>
+    <td><%= movie.description %></td>
+    <td>
+      <%= link_to "Edit",edit_movie_path(movie) %>
+       <% link_to "Delete",movie, method: :delete %>
+    <%= link_to "Delete",movie_path(movie),method: :delete, data: {confirm: "are you sure ?"} %>
+    <%=link_to "Add_Review",new_review_path(resource_id: movie.id, resource_type: 'Movie') %>
+    </td>
+
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+
+                                                                              
+

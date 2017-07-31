@@ -1,0 +1,137 @@
+
+<% @movies.each  do |movie| %>
+  <div class="container">
+    <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-4">
+        <% image_tag movie.trailer_URL, size: "200x150" %> 
+        <%= link_to(image_tag(movie.trailer_URL),movie) %>
+      </div>
+
+      <div class="col-md-8">
+        <div class="col-md-12">
+        <h3><code>Name:</code>
+          <%= link_to movie.name ,movie %>
+          <%  movie.name %>
+        </h3>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Description:</strong>
+        <%= movie.description %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Genre:</strong>
+        <%= movie.genre %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Language:</strong>
+        <%= movie.language %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Casts:<% movie.casts[0][:name] %></strong>
+
+        <% movie.casts.each do |cast| %>
+          <%= link_to cast.name, cast %>
+          <% if cast!= movie.casts.last %>
+            ,
+          <%end%>
+        <%end%>
+
+        
+
+
+        <% movie.casts.each do |mvc|%>
+          <%  mvc.name %><%end  %>
+        </div>
+
+        <div class="col-md-12">
+          <strong> Release Date: </strong>
+          <%= movie.release_date %>
+        </div>
+      <% link_to "Show",new_movie_path, class: "bt btn-success" %>
+      </div>
+    </div>
+  </div>
+</div>
+  <%end%>
+
+
+
+
+<div class="tv-display">
+<% @tvs.each  do |tv| %>
+  <div class="container">
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-md-4">
+          <% image_tag tv.trailer_URL, size: "200x150" %> 
+          <%= link_to(image_tag(tv.trailer_URL),tv) %>
+        </div>
+        <div class="col-md-8">
+          <div class="col-md-12">
+            <h3><code>Name:</code>
+              <%= link_to tv.name ,tv %>
+              <%  tv.name %>
+            </h3>
+          </div>
+
+          <div class="col-md-12">
+            <strong>Release Date:</strong>
+            <%= tv.release_date %>
+          </div>
+
+          <div class="col-md-12">
+            <strong>Genre:</strong>
+            <%= tv.genre %>
+          </div>
+
+          <div class="col-md-12">
+            <strong>Language:</strong>
+            <%= tv.language %>
+          </div>
+
+          <div class="col-md-8">
+            <strong>Rating: </strong>
+            
+<input id="input-2" name="input-2"  class="rating rating-loading" value="<%=tv.reviews.average(:rating)%>"  data-show-clear="false"  
+   data-show-caption="false" data-readonly="true" data-size="xxs" >
+
+          </div>
+
+
+
+          <div class="col-md-12">
+            <strong>Casts:<% tv.casts[0][:name] %></strong>
+
+            <% tv.casts.each do |cast| %>
+              <%= link_to cast.name, cast %>
+              <% if cast!= tv.casts.last %>
+                ,
+              <%end%>
+            <%end%>
+
+
+
+
+            <% tv.casts.each do |tvc|%>
+              <%  tvc.name %>
+            <%end  %>
+          </div>
+
+          <div class="col-md-12">
+            <strong> Description: </strong>
+            <%= tv.description %>
+          </div>
+
+
+          <% link_to "Show",new_tv_path, class: "bt btn-success" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+</div>

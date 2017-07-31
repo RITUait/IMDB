@@ -1,0 +1,121 @@
+
+<div class="container ">
+<div style="float: left;"><%= link_to "Back" ,new_home_path%></div>
+<div style="float: right;"><%= link_to "Next" ,root_path%></div>
+
+<div style="text-align:center"><font size="2" color="blue"><h1><strong><%= @tv.name%></strong></h1></font></div>
+  <div class="row">
+    <div class="jumbotron">
+      <div class="col-md-4">
+        <%= image_tag @tv.trailer_URL, size: "200x150"%>
+      </div>
+
+      <div class="col-md-8">
+        <div class="col-md-12">
+        <h3><code>Name:</code>
+          <%= @tv.name %>
+        </h3>
+      </div>
+
+
+      <div class="col-md-12">
+        <strong>Description:</strong>
+        <%= @tv.description %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Genre:</strong>
+        <%= @tv.genre %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Language:</strong>
+        <%= @tv.language %>
+      </div>
+
+      <div class="col-md-12">
+        <strong>Casts:<% @tv.casts[0][:name] %></strong>
+        <mark>    <%  @tv.casts.pluck(:name).join(",")  %> </mark>
+        
+              <% @tv.casts.each do |cast| %>
+              <%= link_to cast.name, cast %>
+              <% if cast!= @tv.casts.last %>
+                ,
+              <%end%>
+            <%end%>
+
+        </div>
+
+        <div class="col-md-12">
+          <strong> Release Date: </strong>
+          <%= @tv.release_date %>
+        </div>
+      </div>
+
+        <div class="well .well-sm"> 
+ 
+     <% if user_signed_in? %>
+     <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Add Review</button>
+     <%else%>
+      <%= link_to 'Add Review', new_user_session_path, class: "btn btn-info" %>
+     <%end%>
+
+<span class="glyphicon glyphicon-pencil"></span>
+
+<div id="demo"  class="collapse"> 
+<% if user_signed_in? %> 
+<%= render 'reviews/form' %>
+<%end%>
+</div>
+
+        
+          
+        </div>
+        <hr>
+        <%x= @tv.reviews.sort_by {|re| re.created_at}.reverse %>
+        <% x.each do |review| %>
+<hr>
+          <div class="media">
+            <div class="media-left media-middle">
+              <%= image_tag 'user_photo.png' , size: "100x50" %>
+            </div>
+
+            <div class="media-body">
+              <div class="col-md-12">   
+<input id="input-2" name="input-2" class="rating " value=<%= review.rating%> data-show-clear="false" data-show-caption="false" data-size="xs" data-readonly="true" data-disabled="true"  >
+</div>
+
+
+              <div class="col-md-12">
+                <%= review.user.email  %>   <span class="glyphicon glyphicon-user"></span>        
+              </div>
+
+           
+
+              <div class="col-md-12">
+                <strong>Title:</strong>
+                <%= review.title  %>           
+              </div>
+
+              <div class="col-md-12">
+                <strong>Posted On: </strong>
+                <%= review.created_at %>
+              </div>
+
+
+
+              <div class="col-md-12">
+                <strong>Comment:</strong>
+                <%= review.comment %>
+              </div>
+              
+            </div>
+          </div>
+       <hr>
+        <%end%> 
+<hr>       
+      </div>
+    </div>
+  </div>
+
+

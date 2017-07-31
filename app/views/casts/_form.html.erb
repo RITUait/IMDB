@@ -1,0 +1,17 @@
+<div class= "container" >
+  <%= bootstrap_nested_form_for @cast, :html => { :multipart => true } do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_field :DOB %>
+    <%= f.date_field :gender %>
+    <%= f.text_field :age %>
+    <%= f.text_area :description ,as: :text %>
+    <%= f.text_field :photos_URL %>
+    <%= f.fields_for :images do |p| %>
+     <%= p.file_field :image %>
+     <%= p.link_to_remove "Remove" %>
+      <%end%>
+    <%= f.link_to_add "Add Image", :images %>
+    <%= f.submit "Save" %>
+  <% end %>
+</div>
+

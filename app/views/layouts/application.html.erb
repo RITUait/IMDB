@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Imdb Welcomes You</title>
+<%= csrf_meta_tags %>
+
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+     <ul class="navbar-brand"><li><%= link_to "IMDB","#" %></li></ul>
+    </div>
+
+    <ul class="nav navbar-nav">
+     <li> 
+
+     <div class="dropdown">
+<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Home
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+<li><%= link_to "Watch Tv",new_home_path %></li>
+<li><%= link_to "Watch Movies",root_path %></li>
+</ul>
+</div>
+</li>
+
+
+
+
+       
+   <% if current_user.try(:admin?) %>
+      <li><%= link_to "Movies",movies_path %></li>
+      <li><%= link_to "Tv Serials", tvs_path %></li>
+      <li><%= link_to "Casts",casts_path %></li>
+  <%end%>
+</ul>
+
+          <%= form_tag search_home_index_path, :method => 'post' do%>
+           <%= search_field_tag :search,'', id:'search_field', size: 50, maxlength: 120, placeholder: "Search Tv Serials, Movies, Celebrities and much more... "%>
+            <%= select :category,:type, ['All' , 'name' ,'language','genre','cast'], prompt: 'select one' %>
+           <%= submit_tag "Search" %>
+         <% end%>
+
+
+
+
+ <%#=  form_tag(tvs_path,:method => "post", id: "search-form")  do %>
+    <%#= text_field_tag :search , params[:search] ,size:50,maxlength: 120, placeholder: "Search Tv Serials, Movies, Celebrities and much more... " %>
+    <%#= select :tv, :status, ['All', 'Tv Serials','Movies','Casts'], {}, prompt: 'Select One' %> 
+<%#= submit_tag "Search" %>
+<%# end %>
+   
+
+   <div class="collapse navbar-collapse" id="myNavbar"> 
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+             <li><span class="glyphicon glyphicon-user" style="color:blue"></span>
+<%= link_to "Sign Out", destroy_user_session_path,method: :delete %>
+           
+           </li>
+         <%else%>
+
+           <li><%= link_to "Login",new_user_session_path   %>
+         <span class="glyphicon glyphicon-log-in" style="color:blue"></span>
+         </li>
+
+     <% if !(current_user && current_user.admin? && !current_user?(user)) %>
+          <span class="glyphicon glyphicon-user" style="color:blue"></span>
+          <li><%= link_to "Sign Up",new_user_registration_path %> 
+        
+        </li>
+<%end%>
+
+      <%end%>
+    </ul>
+    </div>
+  
+ 
+
+
+
+
+
+
+
+  </div>
+</nav>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<div class="container">
+  <%= yield %>
+</div>
+
+
+
+
+</body>
+</html>

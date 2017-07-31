@@ -1,0 +1,41 @@
+<%= will_paginate @tvs %>
+
+  <h1> LIST OF TV Serials </h1>
+<%= link_to "Add New Tv Serial",new_tv_path, class: "ritu btn-success" %>
+
+<table class="table table-bordered">
+<thead>
+  <th>Sr. No.</th>
+  <th>Name</th>
+  <th>Genre</th>
+  <th>Language</th>
+  <th>Release Date</th>
+  <th>Url</th>
+  <th>Description</th>
+  <th>Action</th>
+</thead>
+
+<tbody>
+<% @tvs.each do |tv| %>
+  <tr>
+    <td><%= tv.id %></td>
+    <td><%= tv.name %></td>
+    <td><%= tv.genre %></td>
+    <td><%= tv.language %></td>
+    <td><%= tv.release_date %></td>
+    <td><%= tv.trailer_URL %></td>
+    <td><%= tv.description %></td>
+    <td>
+      <%= link_to "Edit",edit_tv_path(tv) %>
+      <%= link_to "Delete",tv_path(tv),method: :delete, data: {confirm: "are you sure ?"} %>
+      <%= link_to "Add_Review",new_review_path(resource_id: tv.id , resource_type: 'Tv') %>
+    </td>
+
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+
+                                                                              
+
